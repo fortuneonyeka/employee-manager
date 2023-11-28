@@ -1,21 +1,36 @@
+import { useState } from "react"
+import axios from "axios"
 import "../style.css"
 const Login = () => {
+
+      const [values, setValues] = useState({
+            email: "",
+            password: ""
+      })
+
+      const handleLogin = (event) => {
+            event.preventDefault()
+            axios.post('http:/localhost:4996/auth/adminLogin')
+            .then(result => console.log(result))
+            .catch(err => console.log(err))
+      }
+
   return (
     <div className="h-screen loginPage">
       <div className="flex flex-col justify-center items-center h-screen w-full  loginForm px-4 ">
             
             
 
-<form className="max-w-sm mx-auto  py-24 px-6 w-full border-2 border-gray-400 rounded-xl">
+<form onSubmit={handleLogin} className="max-w-sm mx-auto  py-24 px-6 w-full border-2 border-gray-400 rounded-xl">
 <h2 className="text-center text-2xl mb-5">Login</h2>
   <div className="mb-5">
     <label htmlFor="email" className="block mb-2 text-lg font-medium text-white ">Email:</label>
-    <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Your Email" required />
+    <input onChange={(e) => setValues({...values, email: e.target.value})} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Your Email" required />
     {/* <p className="mt-2 text-sm text-green-600 dark:text-green-500"><span className="font-medium">Alright!</span> Username available!</p> */}
   </div>
   <div className="mb-5">
     <label htmlFor="password" className="block mb-2 textlg font-medium text-white" >Password:</label>
-    <input type="password" name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Your Password" required />
+    <input onChange={(e) =>setValues({...values, password: e.target.value})} type="password" name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Your Password" required />
   </div>
   <div className="flex items-start mb-5">
     <div className="flex items-center h-5">
